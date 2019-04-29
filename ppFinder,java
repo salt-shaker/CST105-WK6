@@ -1,0 +1,121 @@
+package ppFinder;
+
+// Sashae S Owens
+
+// I wrote this code
+
+public class PpFinder {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int[] ppArray = new int[407];
+		int[] ppcArray = new int[113];
+		int counter = 0;
+
+		for (int i = 0; i < 100_001; i++) {
+			boolean isPrime = primeCheck(i);
+			boolean isPalindrome = palCheck(i);
+
+			if (isPrime && isPalindrome) {
+				// System.out.println(i + " is prime and Palindrome!");
+				ppArray[counter] = i;
+				counter++;
+			}
+
+			// System.out.println(i + " is prime: " + primeCheck(i));
+			// System.out.println(i + " is palindrome: " + palCheck(i));
+		}
+		
+		counter = 0;
+		
+		System.out.println("Processing... Please wait");
+		
+		for (int i: ppArray) {
+			boolean cCheck = compositePrimeCheck(i);
+			if (cCheck) {
+				ppcArray[counter] = i;
+				counter++;
+				
+			}
+		}
+		System.out.println("counter is " + counter);
+
+		counter = 0;
+
+		System.out.println("Palindromic Primes");
+
+		for (int i = 0; i < ppcArray.length-1; i++) {
+			if (counter == 3) {
+				System.out.printf("%-10s \n", ppcArray[i]);
+				counter = -1;
+			} else {
+				System.out.printf("%-10s", ppcArray[i]);
+			}
+			counter++;
+		}
+
+		// System.out.printf("%-10s %-10s %-10s %-10s\n",temp,temp,temp,temp);
+
+	}// EOM
+
+	/*******************************
+	 * Composite Prime Checker New *
+	 *******************************/
+	public static boolean compositePrimeCheck(int x) {
+		int half = x / 2;
+
+		// Look for simi-primes
+		for (int i = 0; i < half; i++) {
+			for (int j = 0; j < half; j++) {
+				int k = i * j;
+				if (k == x) {
+					return false;
+				}
+			}
+		}
+
+	return true;	
+	}
+
+	/*****************
+	 * Prime Checker *
+	 *****************/
+	public static boolean primeCheck(int x) {
+
+		int y = x % 2; // If divisible by 2
+		int z = x % 3; // If divisible by 3
+
+		// If int is divisible by 2 or 3 then it is not a prime
+		if (y == 0 || z == 0 || x == 1) {
+			if (x == 3 || x == 2) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	/**********************
+	 * Palindrome Checker *
+	 **********************/
+	public static boolean palCheck(int x) {
+		String y = Integer.toString(x);
+		String z = "";
+
+		// Reverse integer
+		for (int i = y.length(); i > 0; i--) {
+			z += y.charAt(i - 1);
+		}
+
+		// Compare original with reverse
+		if (y.equals(z)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+}// EOC
