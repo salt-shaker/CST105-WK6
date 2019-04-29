@@ -9,39 +9,47 @@ public class PpFinder {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		// variables
 		int[] ppArray = new int[407];
 		int[] ppcArray = new int[114];
 		int counter = 0;
 
+		/*
+		 * Prime and Palindrome Check loop
+		 */
 		for (int i = 0; i < 100_001; i++) {
 			boolean isPrime = primeCheck(i);
 			boolean isPalindrome = palCheck(i);
 
+			// If prime and panlindrome push into ppArray
 			if (isPrime && isPalindrome) {
-				// System.out.println(i + " is prime and Palindrome!");
 				ppArray[counter] = i;
 				counter++;
 			}
 
-			// System.out.println(i + " is prime: " + primeCheck(i));
-			// System.out.println(i + " is palindrome: " + palCheck(i));
 		}
 		
+		// reset counter
 		counter = 0;
 		
 		System.out.println("Processing... Please wait");
 		
+		// Check if composite prime
 		for (int i: ppArray) {
 			boolean cCheck = compositePrimeCheck(i);
+			// If not composite, push into ppcArray
 			if (cCheck) {
 				ppcArray[counter] = i;
 				counter++;
-				
 			}
 		}
 
+		// Reset counter
 		counter = 0;
 
+		/*
+		 * Formatted Output
+		 */
 		System.out.println("Palindromic Primes");
 
 		for (int i = 0; i < ppcArray.length-1; i++) {
